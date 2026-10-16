@@ -5,6 +5,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&family=Roboto+Mono:wght@400;500&display=swap">
 <style>
+[hidden]{display:none!important}
+html{-webkit-text-size-adjust:100%}
+img{max-width:100%}
 /* Layout: riel de proyectos + lienzo de trabajo. Elemento firma: "reloj de fondos" (tiempo vs dinero). Paleta CSLAB, siempre clara. */
 :root{
   --bg:#ffffff; --surface:#ffffff; --sunk:#eef3f6; --line:#d3dde3;
@@ -948,7 +951,8 @@ function showAuth(mode,msg){
   sb.auth.onAuthStateChange((ev,session)=>{if(ev==="PASSWORD_RECOVERY"){recovering=true;USER=session&&session.user;showAuth("recovery")}});
   const {data}=await sb.auth.getSession();
   if(recovering&&data.session){USER=data.session.user;showAuth("recovery");return}
-  if(data.session){if(/access_token/.test(location.hash))history.replaceState(null,"",location.pathname);enterApp(data.session)}else showAuth("login");
+  if(location.hash)history.replaceState(null,"",location.pathname);
+  if(data.session)enterApp(data.session);else showAuth("login");
 })();
 })();
 </script>
